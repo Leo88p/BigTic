@@ -1,0 +1,16 @@
+﻿@page
+@model BigTic.Pages.GameModel
+
+<!doctype html>
+<html>
+<head>
+    <title>Закрась клетку</title>
+    <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+    @Html.AntiForgeryToken()
+    <canvas id="canvas" data-user="@User.Identity.Name"></canvas>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+    <script src="js/index.js" type="module"></script>
+</body>
+</html>

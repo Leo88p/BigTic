@@ -1,0 +1,43 @@
+﻿@page
+@model IndexModel
+
+<!doctype html>
+<html>
+<head>
+    <title>Закрась клетку</title>
+    <link rel="stylesheet" href="css/styles.css" />
+    <script src="js/main.js" type="module"></script>
+</head>
+<body>
+    @Html.AntiForgeryToken()
+    <div class="main">
+        <div class="buttons" >
+        @if (User.Identity.Name is not null)
+        {
+            <form asp-controller="Logout" asp-action="Logout" method="post">
+                <button>Выйти</button>
+            </form>
+        } 
+        else
+        {
+            <form action="/Login">
+                <button>Войти</button>
+            </form>
+            <form action="Register">
+                <button>Регистрация</button>
+            </form>
+        }
+        </div>
+        <div class="text">
+            <div class="rules">
+                <b>Правила:</b> игровое поле состоит из клеток. В свой ход вы можете закрасить одну границу любой клетки. Как только все границы клетки закрашены, она закрашивается в ваш цвет и вы получаете дополнительный ход. Побеждает игрок, закрасивший большую часть клеток.
+            </div>
+            @if (User.Identity.Name is not null) {
+                <form method="post">
+                    <button>Играть!</button>
+                </form>
+            }
+        </div>
+    </div>
+</body>
+</html>

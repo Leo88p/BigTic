@@ -1,0 +1,33 @@
+﻿@page
+@model BigTic.Pages.LoginModel
+@{
+}
+<!doctype html>
+<html>
+    <head>
+        <title>Закрась клетку</title>
+        <link rel="stylesheet" href="css/styles.css" />
+    </head>
+    <body>
+        <div class="main">
+        <form asp-action="Login" class = "login-form" method="post">
+            <div>
+                <div>Логин</div>
+                <input asp-for="Login" required/>
+            </div>
+            <div>
+                <div>Пароль</div>
+                <input asp-for="Password" type="password" required />
+            </div>
+            <div class="div-check">
+                <div>Запомнить меня</div>
+                <input class = "check" asp-for="IsPersistant" type="checkbox"/>
+            </div>
+            <div class="login-buttons">
+                <button>Войти</button>
+                <a href="Register">Регистрация</a>
+            </div>
+        </form>
+    </div>
+    </body>
+</html>
