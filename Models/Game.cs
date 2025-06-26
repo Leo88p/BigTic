@@ -1,4 +1,6 @@
-﻿namespace BigTic.Models
+﻿using System.Drawing;
+
+namespace BigTic.Models
 {
     public class Cell
     {
@@ -127,6 +129,58 @@
         public bool PointLine(double px, double py, double x1, double y1, double x2, double y2, double buffer)
         {
             return Distance(px, py, x1, y1) + Distance(px, py, x2, y2) < Distance(x1, y1, x2, y2) + buffer;
+        }
+        public void CheckClick(double x, double y, double r, double w)
+        {
+            const int size = 9;
+            for (int i = 0; i < size + 1; i++)
+            {
+                for (int j = 0; j < size + 1; j++)
+                {
+                    List<Cell> adjs = [];
+                    if (horizontalArcs[i][j].value != "empty"
+                        && PointLine(x, y, w * 0.025 + (i + 0.1) * r, w * 0.025 + j * r, w * 0.025 + (i + 0.9) * r, w * 0.025 + j * r, 5)
+                        && horizontalArcs[i][j].value == "0")
+                    {
+                        horizontalArcs[i][j].value = "1";
+                        currentMove++;
+                        adjs = horizontalArcs[i][j].adjesants;
+                    }
+                    else if (verticalArcs[i][j].value != "empty"
+                        && PointLine(x, y, w * 0.025 + i * r, w * 0.025 + (j + 0.1) * r, w * 0.025 + i * r, w * 0.025 + (j + 0.9) * r, 5)
+                        && verticalArcs[i][j].value == "0")
+                    {
+                        verticalArcs[i][j].value = "1";
+                        currentMove++;
+                        adjs = verticalArcs[i][j].adjesants;
+                    }
+                    if (adjs.Count > 0)
+                    {
+                        int count = 0;
+                        foreach (var adj in adjs)
+                        {
+                            int arcs = 0;
+                            foreach (var a in adj.adjesants)
+                            {
+                                if (a.value == "1")
+                                {
+                                    arcs++;
+                                }
+                            }
+                            if (arcs == 4)
+                            {
+                                adj.value = (player + 1).ToString();
+                                count++;
+                                score[player]++;
+                            }
+                        }
+                        if (count == 0)
+                        {
+                            player = 1 - player;
+                        }
+                    }
+                }
+            }
         }
     }
 }

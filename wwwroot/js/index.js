@@ -22,6 +22,10 @@ async function onClick(e) {
     const y = (e.clientY - rect.top).toString().replace(".", ",")
     const r = rectSize.toString().replace(".", ",")
     const w = canvas.width.toString().replace(".", ",")
+    console.log(x)
+    console.log(y)
+    console.log(r)
+    console.log(w)
     hubConnection.invoke("Send", user, x, y, r, w)
 }
 function Surrender(e) {

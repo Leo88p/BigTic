@@ -9,20 +9,11 @@
     }
   },
   "profiles": {
-    "http": {
-      "commandName": "Project",
-      "dotnetRunMessages": true,
-      "launchBrowser": true,
-      "applicationUrl": "http://localhost:5143",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }
-    },
     "https": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
-      "applicationUrl": "https://192.168.1.116:7257;http://localhost:5143",
+      "applicationUrl": "https://192.168.1.116:7257",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

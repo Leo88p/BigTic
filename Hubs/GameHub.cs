@@ -3,6 +3,7 @@ using BigTic.Pages;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SignalR;
 using System.Drawing;
+using System.Numerics;
 using System.Text.Json;
 
 namespace BigTic.Hubs
@@ -35,55 +36,9 @@ namespace BigTic.Hubs
                 double y = Convert.ToDouble(Y);
                 double r = Convert.ToDouble(R);
                 double w = Convert.ToDouble(W);
-                for (int i = 0; i < size + 1; i++)
+                if (game.player == 0 && user == gameRecord.User1 || game.player == 1 && user == gameRecord.User2)
                 {
-                    for (int j = 0; j < size + 1; j++)
-                    {
-                        List<Cell> adjs = [];
-                        if (game.horizontalArcs[i][j].value != "empty" 
-                            && game.PointLine(x, y, w * 0.025 + (i + 0.1) * r, w * 0.025 + j * r, w * 0.025 + (i + 0.9) * r, w * 0.025 + j * r, 5) 
-                            && game.horizontalArcs[i][j].value == "0"
-                            && (game.player==0 && user == gameRecord.User1 || game.player==1 && user== gameRecord.User2))
-                        {
-                            game.horizontalArcs[i][j].value = "1";
-                            game.currentMove++;
-                            adjs = game.horizontalArcs[i][j].adjesants;
-                        }
-                        else if (game.verticalArcs[i][j].value != "empty"
-                            && game.PointLine(x, y, w * 0.025 + i * r, w * 0.025 + (j + 0.1) * r, w * 0.025 + i * r, w * 0.025 + (j + 0.9) * r, 5) 
-                            && game.verticalArcs[i][j].value == "0"
-                            && (game.player == 0 && user == gameRecord.User1 || game.player == 1 && user == gameRecord.User2))
-                        {
-                            game.verticalArcs[i][j].value = "1";
-                            game.currentMove++;
-                            adjs = game.verticalArcs[i][j].adjesants;
-                        }
-                        if (adjs.Count > 0)
-                        {
-                            int count = 0;
-                            foreach (var adj in adjs)
-                            {
-                                int arcs = 0;
-                                foreach (var a in adj.adjesants)
-                                {
-                                    if (a.value == "1")
-                                    {
-                                        arcs++;
-                                    }
-                                }
-                                if (arcs == 4)
-                                {
-                                    adj.value = (game.player + 1).ToString();
-                                    count++;
-                                    game.score[game.player]++;
-                                }
-                            }
-                            if (count == 0)
-                            {
-                                game.player = 1 - game.player;
-                            }
-                        }
-                    }
+                    game.CheckClick(x, y, r, w);
                 }
                 if (game.currentMove >= game.maxMoves)
                 {

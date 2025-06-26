@@ -5,6 +5,8 @@ VisualStudioVersion = 17.14.36119.2
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BigTic", "D:\BigTic\BigTic.csproj", "{4BCB9C56-A64D-4FA2-A768-C4C127B31159}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject", "TestProject\TestProject.csproj", "{3AFB5E91-9667-4235-8410-AA21F65B3A9B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{4BCB9C56-A64D-4FA2-A768-C4C127B31159}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4BCB9C56-A64D-4FA2-A768-C4C127B31159}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4BCB9C56-A64D-4FA2-A768-C4C127B31159}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3AFB5E91-9667-4235-8410-AA21F65B3A9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AFB5E91-9667-4235-8410-AA21F65B3A9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3AFB5E91-9667-4235-8410-AA21F65B3A9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3AFB5E91-9667-4235-8410-AA21F65B3A9B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
