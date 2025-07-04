@@ -4,9 +4,11 @@ services:
     build:
       context: BigTic
       dockerfile: Dockerfile
+    environment:
+      - DB_SERVER=sql-server2022
   sql:
     image: "mcr.microsoft.com/mssql/server:2022-latest"
-    container_name: sql_server2022
+    container_name: sql-server2022
     ports: # not actually needed, because the two services are on the same network
       - "1433:1433" 
     environment:

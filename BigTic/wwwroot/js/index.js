@@ -18,19 +18,19 @@ const hubConnection = new signalR.HubConnectionBuilder()
 
 async function onClick(e) {
     const rect = canvas.getBoundingClientRect()
-    const x = (e.clientX - rect.left).toString().replace(".", ",")
-    const y = (e.clientY - rect.top).toString().replace(".", ",")
-    const r = rectSize.toString().replace(".", ",")
-    const w = canvas.width.toString().replace(".", ",")
+    const x = (e.clientX - rect.left).toString()
+    const y = (e.clientY - rect.top).toString()
+    const r = rectSize.toString()
+    const w = canvas.width.toString()
     console.log(x)
     console.log(y)
     console.log(r)
     console.log(w)
-    hubConnection.invoke("Send", user, x, y, r, w)
+    hubConnection.invoke("Send", x, y, r, w)
 }
 function Surrender(e) {
     if (e.code == 'KeyZ') {
-        hubConnection.invoke("Capitulate", user)
+        hubConnection.invoke("Capitulate")
     }
 }
 function drawLine(arc, i, j, di, dj) {
@@ -55,32 +55,33 @@ function render(gameString) {
     if (!game.gameEnded) {
         if (game.player == 0) {
             ctx.fillStyle = "cyan"
-            playerName = "синий"
+            playerName = game.User1
         } else {
             ctx.fillStyle = "yellow"
-            playerName = "жёлтый"
+            playerName = game.User2
         }
         ctx.fillText("Ходит " + playerName, 5, 20)
     }
     else {
         if (game.playerSurrended != 0) {
+            console.log(game.playerSurrended)
             if (game.playerSurrended == 1) {
                 ctx.fillStyle = "yellow"
-                playerName = "Синий"
+                playerName = game.User1
             }
             else {
                 ctx.fillStyle = "cyan"
-                playerName = "Жёлтый"
+                playerName = game.User2
             }
             ctx.fillText(playerName + " сдался", 5, 20)
         }
         else {
             if (game.score[0] > game.score[1]) {
                 ctx.fillStyle = "cyan"
-                playerName = "Синий"
+                playerName = game.User1
             } else {
                 ctx.fillStyle = "yellow"
-                playerName = "Жёлтый"
+                playerName = game.User2
             }
             ctx.fillText(playerName + " победил", 5, 20)
         }
@@ -105,6 +106,10 @@ function render(gameString) {
     if (!game.gameEnded) {
         ctx.fillStyle = "red";
         ctx.fillText("Нажмите Ζ чтобы сдаться", canvas.width - 250, 20)
+    }
+    else {
+        ctx.fillStyle = "red";
+        ctx.fillText("Кликните чтобы выйти", canvas.width - 250, 20)
     }
     for (let i = 0; i < size; ++i) {
         for (let j = 0; j < size; ++j) {
@@ -135,9 +140,11 @@ function render(gameString) {
     if (game.gameEnded) {
         canvas.removeEventListener('click', onClick);
         document.removeEventListener('keypress', Surrender);
+        document.addEventListener('click', () => location = "/Index")
+        document.addEventListener('keypress', () => location = "/Index")
     }
 }
 document.addEventListener('keypress', Surrender)
 hubConnection.on("Recieve", (gameString) => render(gameString))
-hubConnection.start().then(() => hubConnection.invoke("Send", user, "null", "null", "null", "null"))
+hubConnection.start().then(() => hubConnection.invoke("Init"))
 canvas.addEventListener("click", onClick)

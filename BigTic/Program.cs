@@ -16,8 +16,10 @@ builder.Services.AddRazorPages();
 
 builder.Services.AddSingleton<IGameService, GameService>();
 
+string db_connect = "Server=" + Environment.GetEnvironmentVariable("DB_SERVER") +
+                builder.Configuration.GetConnectionString("BigTicContextConnection");
 builder.Services.AddDbContext<BigTicContext>(options =>
-                options.UseSqlServer(builder.Configuration.GetConnectionString("BigTicContextConnection")));
+                options.UseSqlServer(db_connect));
 
 builder.Services.AddIdentity<Auth, IdentityRole<long>>(options =>
 {
@@ -54,7 +56,14 @@ using (var scope = app.Services.CreateScope())
     var services = scope.ServiceProvider;
 
     var context = services.GetRequiredService<BigTicContext>();
-    context.Database.EnsureCreated();
+    try
+    {
+        context.Database.EnsureCreated();
+    }
+    catch
+    {
+        Console.Error.WriteLine("Unnable to connect to "+db_connect);
+    }
 }
 
 app.UseHttpsRedirection();
@@ -69,6 +78,7 @@ app.MapControllers();
 app.MapRazorPages();
 
 app.MapHub<GameHub>("/move");
+app.MapHub<JoinHub>("/join");
 
 app.Run();
 

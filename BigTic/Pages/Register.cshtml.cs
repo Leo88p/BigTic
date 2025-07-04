@@ -21,8 +21,16 @@ namespace BigTic.Pages
             _signInManager = signInManager;
             _dbContext = dbContext;
         }
-        public void OnGet()
+        public IActionResult OnGet()
         {
+            if (User.Identity is not null && User.Identity.Name is not null)
+            {
+                return RedirectToPage("/Index");
+            }
+            else
+            {
+                return Page();
+            }
         }
         public async Task<IActionResult> OnPostAsync()
         {

@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BigTic.csproj" />
+    <ProjectReference Include="..\BigTic\BigTic.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -6,7 +6,6 @@
 <head>
     <title>Закрась клетку</title>
     <link rel="stylesheet" href="css/styles.css" />
-    <script src="js/main.js" type="module"></script>
 </head>
 <body>
     @Html.AntiForgeryToken()
@@ -33,11 +32,20 @@
                 <b>Правила:</b> игровое поле состоит из клеток. В свой ход вы можете закрасить одну границу любой клетки. Как только все границы клетки закрашены, она закрашивается в ваш цвет и вы получаете дополнительный ход. Побеждает игрок, закрасивший большую часть клеток.
             </div>
             @if (User.Identity.Name is not null) {
-                <form method="post">
-                    <button>Играть!</button>
+                <form>
+                    @if (!Model.findingGame)
+                    {
+                        <button id="play">Играть!</button>
+                    }
+                    else
+                    {
+                        <button id="cancel">Отменить</button>
+                    }
                 </form>
             }
         </div>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+    <script src="js/main.js" type="module"></script>
 </body>
 </html>

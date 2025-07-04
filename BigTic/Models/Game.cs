@@ -38,7 +38,7 @@ namespace BigTic.Models
         public int maxMoves { get; set; } = -4;
         public int currentMove { get; set; } = 0;
         public bool gameEnded { get; set; } = false;
-        public int playerSurrended = 0;
+        public int playerSurrended { get; set; } = 0;
 
         public string User1 { get; set; }
         public string User2 { get; set; }
